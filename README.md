@@ -4,7 +4,7 @@ This is the Git repository of the Docker image for  Linux (Ubuntu), Apache with 
 ## Running
 To run the container:
 ```
-$ sudo docker run -d jerfeson/ap:php56
+$ sudo docker run -d jerfeson/ap:php72
 ```
 
 Default web root:

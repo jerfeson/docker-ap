@@ -19,18 +19,18 @@ RUN  a2enmod rewrite
 RUN add-apt-repository -y ppa:ondrej/php && apt-get update
 
 #Installing PHP and extensions
-RUN apt-get -y install php5.6 libapache2-mod-php5.6 php5.6-cli php5.6-common php5.6-mysql \
-php5.6-curl php5.6-dev php5.6-mbstring php5.6-gd php5.6-json php5.6-redis php5.6-xml php5.6-zip php5.6-intl
+RUN apt-get -y install php7.2 libapache2-mod-php7.2 php7.2-cli php7.2-common php7.2-mysql \
+php7.2-curl php7.2-dev php7.2-mbstring php7.2-gd php7.2-json php7.2-redis php7.2-xml php7.2-zip php7.2-intl
 
 #Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 #Install XDebug
-RUN pecl install xdebug-2.5.5
+RUN pecl install xdebug-2.9.5
 
 #Configuration XDebug
-RUN echo 'zend_extension=/usr/lib/php/20131226/xdebug.so' >> /etc/php/5.6/apache2/php.ini
-RUN echo 'zend_extension=/usr/lib/php/20131226/xdebug.so' >> /etc/php/5.6/cli/php.ini
+RUN echo 'zend_extension=/usr/lib/php/20170718/xdebug.so' >> /etc/php/7.2/apache2/php.ini
+RUN echo 'zend_extension=/usr/lib/php/20170718/xdebug.so' >> /etc/php/7.2/cli/php.ini
 
 # Quality tools
 RUN USERNAME=$('whoami') && composer global require squizlabs/php_codesniffer=*  phpcompatibility/php-compatibility=* \
@@ -45,7 +45,7 @@ RUN mkdir "/conf.d" && version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSIO
     && mkdir -p /tmp/blackfire \
     && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
     && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
-    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > /etc/php/5.6/apache2/conf.d/blackfire.ini
+    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8707\n" > /etc/php/7.2/apache2/conf.d/blackfire.ini
 
 # Clean up
 RUN rm -rf /tmp/pear \
